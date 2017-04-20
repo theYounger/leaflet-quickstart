@@ -1,12 +1,11 @@
-//What: Builder a server for Node to listen on
-//Why: Because I want to make my app available to other users
-//How: Bring in the 'express' library as a Node package to build server
-var express = require('express');
-var app = express();
-var PORT = 3000;
+var tileOpts = {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    maxZoom: 15,
+    id: "mapbox.streets",
+    accessToken: 'pk.eyJ1Ijoia3V5ZWhhcmEiLCJhIjoiY2l5bnZsbm5mMDAyNTRlbnpwbnpra2lwbyJ9.DmBIXGUHlZpZpU_MI8uMQQ',
+}
 
-app.use(express.static('public'));
+var mymap = L.map("mapid").setView([36, -97], 4);
 
-app.listen(PORT, function() {
-  console.log('Server now listening on port', PORT);
-});
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', tileOpts)
+    .addTo(mymap);
